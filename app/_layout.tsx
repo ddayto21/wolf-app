@@ -1,9 +1,6 @@
-/** Global Entry Point
- * This file is the main entry point of the app. It wraps the entire application
- * with the Redux <Provider> so that any component can access and update global state
- * with useSelector and useDispatch.
+/**
+ * Root layout for the app, wrapping navigation, Redux, and theming.
  */
-
 import {
   DarkTheme,
   DefaultTheme,
@@ -42,9 +39,13 @@ export default function RootLayout() {
   return (
     <Provider store={store}>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Stack>
-        <Stack screenOptions={{ headerShown: false }} />
-        </Stack>
+        <Stack
+          screenOptions={{
+
+            headerBackTitle: "Back",
+          }}
+        />
+
         <StatusBar style="auto" />
       </ThemeProvider>
     </Provider>

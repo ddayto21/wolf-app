@@ -11,12 +11,11 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setSort, type SortOption } from "@/redux/slices/posts-reducer";
 import { RootState } from "../../redux/store";
+import { Ionicons } from "@expo/vector-icons";
 
 /**
- * SortMenu is a dropdown-style UI component that allows users to
- * sort the post list by date or title in ascending or descending order.
- *
- * Designed for UX similar to social apps like Instagram/Twitter.
+ * SortMenu is a refined, dropdown-style menu with a sort icon.
+ * When tapped, it opens a modal where the user can select a sort option.
  */
 export function SortMenu() {
   const dispatch = useDispatch();
@@ -38,8 +37,14 @@ export function SortMenu() {
   return (
     <View style={styles.wrapper}>
       <TouchableOpacity style={styles.button} onPress={() => setVisible(true)}>
+        <Ionicons
+          name="filter-outline"
+          size={18}
+          color="#444"
+          style={{ marginRight: 6 }}
+        />
         <Text style={styles.buttonText}>
-          Sort: {sortOptions.find((opt) => opt.value === currentSort)?.label}
+          {sortOptions.find((opt) => opt.value === currentSort)?.label}
         </Text>
       </TouchableOpacity>
 
@@ -72,13 +77,18 @@ export function SortMenu() {
 const styles = StyleSheet.create({
   wrapper: {
     alignItems: "flex-end",
-    marginBottom: 16,
+    marginBottom: 12,
+    marginRight: 6,
   },
   button: {
-    backgroundColor: "#F5F5F5",
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#f0f0f0",
     paddingHorizontal: 14,
-    paddingVertical: 10,
-    borderRadius: 10,
+    paddingVertical: 8,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#ddd",
   },
   buttonText: {
     fontSize: 14,
@@ -88,26 +98,33 @@ const styles = StyleSheet.create({
   overlay: {
     flex: 1,
     justifyContent: "flex-start",
-    paddingTop: 80,
-    backgroundColor: "rgba(0,0,0,0.3)",
+    paddingTop: 100,
+    backgroundColor: "rgba(0,0,0,0.25)",
   },
   menu: {
-    backgroundColor: "white",
-    marginHorizontal: 16,
+    backgroundColor: "#fff",
+    marginHorizontal: 20,
     borderRadius: 10,
-    paddingVertical: 10,
-    elevation: 5,
+    paddingVertical: 8,
+    paddingHorizontal: 4,
+    elevation: 6,
+    shadowColor: "#000",
+    shadowOpacity: 0.08,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 10,
   },
   menuItem: {
     paddingVertical: 12,
     paddingHorizontal: 16,
+    borderBottomWidth: 0.5,
+    borderBottomColor: "#eee",
   },
   menuText: {
-    fontSize: 16,
+    fontSize: 15,
     color: "#333",
   },
   selected: {
     fontWeight: "600",
-    color: "#1DA1F2", // Twitter blue
+    color: "#1D4ED8",
   },
 });

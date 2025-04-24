@@ -41,7 +41,7 @@ export default function HomeScreen() {
           },
         ]}
       >
-        Opportunities for You
+        Home
       </Text>
 
       <SortMenu />
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: Platform.OS === "ios" ? 60 : 40,
-    paddingHorizontal: 20,
+    paddingHorizontal: 16,
   },
   header: {
     fontSize: 26,
