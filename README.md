@@ -1,50 +1,139 @@
-# Welcome to your Expo app 👋
+# 🐺 Wolf Application
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This is a React Native application built with [Expo](https://expo.dev), [Redux](https://redux.js.org/), and [React Navigation](https://reactnavigation.org/). The app features a list of social-media-style posts, each containing a profile image, title, description, and creation date. Posts can be filtered and sorted by name, category, or creation date.
 
-## Get started
+---
 
-1. Install dependencies
+## 💻 App Architecture
 
-   ```bash
-   npm install
-   ```
+- `app`: Defines all screen-level routes, including the `Home` (index.tsx) and dynamic `Profile` pages using file-based routing with expo-router.
 
-2. Start the app
+- `components`: Reusable UI elements such as `<PostCard>`, `<SortMenu>`, and `<PostFilter>`, designed for consistency and modular design.
 
-   ```bash
-    npx expo start
-   ```
+- `redux`: Centralized store for managing `post data`, `filters`, and user selections—ensuring predictable state and clean data flow across screens..
 
-In the output, you'll find options to open the app in a
+- `fixtures`: Contains mock data used for local development and testing. The app is structured with clearly defined types (e.g., `Post`) so that swapping in a real API later would require minimal changes.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### 📦 Why I Chose Expo
 
-## Get a fresh project
+While the original assessment suggested using React Native CLI, I chose Expo to streamline development and improve maintainability. Expo is a production-ready framework built on top of React Native that simplifies setup and accelerates delivery.
 
-When you're ready, run:
+`Expo` is a production-grade React Native framework that significantly accelerates app development by offering:
+
+- Built-in `native APIs` (camera, notifications, haptics, etc.).
+- `File-based routing` with expo-router.
+- Fresh fresh and developer tools out the box.
+- No need to manually configure `Xcode` or `Android Studio`.
+
+This approach ensures a consistent, scalable codebase—ideal for small or fast-moving teams. And if we ever need full native control, `Expo` allows us to `“eject”` to a bare React Native project with minimal friction.
+
+---
+
+## 🧠 Key Technical Decisions
+
+- **Expo**: Chosen for speed, simplicity, and production-grade tooling
+- **FlatList**: Used to render posts efficiently—it virtualizes list items for better performance and supports pull-to-refresh, pagination, and infinite scrolling
+- **TypeScript**: Provides strong typing and maintainable, self-documenting code
+- **EAS Build**: Enables shareable internal builds without App Store dependencies
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the repository
 
 ```bash
-npm run reset-project
+git clone https://github.com/ddayto21/wolf-app.git
+cd wolf-app
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 2. Install Product dependencies
 
-## Learn more
+```bash
+npm install
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+### 🛠 Setup iOS Simulator (macOS)
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+To run the app in an iOS simulator, follow these steps on macOS:
 
-## Join the community
+## ✅ Prerequisites
 
-Join our community of developers creating universal apps.
+Before launching the simulator, install the following tools:
+Required for all iOS builds:
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+1. Xcode Command Line Tools
+
+Required for all iOS builds:
+
+```bash
+xcode-select --install
+```
+
+2. Xcode & iOS Simulator
+
+To run the app on an iOS simulator:
+
+1. Open the `Xcode` app.
+2. Navigate to `Settings` → `Components`.
+3. Under `Platform Support`, install the iOS simulator (e.g. iOS 17.0).
+4. Install Ruby (optional but recomended for macOS + CocoaPods compatibility)
+
+```bash
+brew install ruby
+echo 'export PATH="/opt/homebrew/opt/ruby/bin:$PATH"' >> ~/.zprofile
+source ~/.zprofile
+```
+
+---
+
+▶️ Run the App
+
+Once prerequisites are installed, start the development server:
+
+```bash
+npx expo start
+```
+
+In the terminal, you’ll see options to:
+
+- Press `i` to open the `iOS simulator`
+- Press `a` to open the `Android emulator`.
+- Scan the QR code with the [Expo Go](https://expo.dev/go) app
+
+💡 If the iOS simulator doesn’t open automatically, ensure Xcode is fully installed and updated.
+
+---
+
+## 🚀 Forward Strategy: EAS & Multi-Tenant Platform Scalability
+
+As the platform scales across multiple staffing agency clients, `Expo Application Services` (EAS) can play a central role in supporting modular builds, white-label deployment, and real device testing workflows.
+
+---
+
+### ✅ Why EAS (Expo Application Services)?
+
+EAS Build enables us to:
+
+- Generate separate branded apps for different agency clients (e.g., Omni Hotels, healthcare groups)
+- Automate the build process for iOS/Android store-ready binaries without requiring local native setup
+- Create internal or external TestFlight builds for client stakeholders to review and QA each release in real time
+- Manage build configurations per client using environment variables (`eas.json`) to define `app name`, `icons`, `themes`, and `endpoints`.
+
+---
+
+🔧 How We Can Scale a White-Labeled Architecture with Expo
+
+To support multi-tenant platform delivery, the app is structured around a modular, configurable architecture:
+
+- Each client’s configuration (branding, colors, APIs, roles) can be pulled dynamically at runtime or bundled per build
+
+- Using eas.json and custom environment files (.env.clientX), we can automate builds for:
+  - staging-clientA
+  - production-clientA
+  - staging-clientB
+  - etc.
+
+---
