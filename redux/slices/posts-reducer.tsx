@@ -3,7 +3,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Post } from "../../types/post";
 import { posts } from "../../fixtures/posts";
 
-
 interface PostState {
   all: Post[];
   search: string;

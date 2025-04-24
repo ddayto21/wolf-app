@@ -1,11 +1,12 @@
-// app/(tabs)/index.tsx
+// app/index.tsx
 
 import { View, Text, StyleSheet, Platform } from "react-native";
-
+import { useNavigation } from "expo-router";
+import { useEffect } from "react";
 import { SortMenu } from "@/components/posts/SortMenu";
 import { PostFilter } from "@/components/posts/PostFilter";
 import { PostList } from "@/components/posts/PostList";
-import { posts } from "../../fixtures/posts";
+import { posts } from "../fixtures/posts";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { Colors } from "@/constants/Colors";
@@ -18,6 +19,12 @@ export default function HomeScreen() {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === "dark";
 
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ headerShown: false });
+  }, [navigation]);
+
   return (
     <View
       style={[
@@ -26,10 +33,17 @@ export default function HomeScreen() {
       ]}
     >
       <Text
-        style={[styles.header, { color: Colors[colorScheme ?? "light"].text }]}
+        style={[
+          styles.header,
+          {
+            color: Colors[colorScheme ?? "light"].text,
+            opacity: 0.9,
+          },
+        ]}
       >
-        Latest Opportunities
+        Opportunities for You
       </Text>
+
       <SortMenu />
       <PostFilter />
       <PostList />
@@ -41,11 +55,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: Platform.OS === "ios" ? 60 : 40,
-    paddingHorizontal: 16,
+    paddingHorizontal: 20,
   },
   header: {
-    fontSize: 24,
-    fontWeight: "600",
-    marginBottom: 16,
+    fontSize: 26,
+    fontWeight: "700",
+    letterSpacing: -0.5,
+    marginBottom: 12,
   },
 });
